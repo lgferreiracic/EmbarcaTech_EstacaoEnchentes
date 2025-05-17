@@ -56,32 +56,3 @@ void draw_matrix(RGB pixels[NUM_PIXELS]) {
         pio_sm_put_blocking(pio, sm, matrix_rgb(pixels[index].R, pixels[index].G, pixels[index].B));
     }
 }
-
-// Função para desenhar a matriz de LEDs com base no estado do semáforo
-void draw_traffic_light_matrix(int traffic_light_state) {
-    RGB pixels[NUM_PIXELS];
-    switch(traffic_light_state){
-        case 0:
-            for (int i = 0; i < NUM_PIXELS; i++) {
-                pixels[i] = GREEN;
-            }
-            break;
-        case 1:
-            for (int i = 0; i < NUM_PIXELS; i++) {
-                pixels[i] = YELLOW;
-            }
-            break;
-        case 2:
-            for (int i = 0; i < NUM_PIXELS; i++) {
-                pixels[i] = RED;
-            }
-            break;
-        default:
-            for (int i = 0; i < NUM_PIXELS; i++) {
-                pixels[i] = BLACK;
-            }
-            break;
-    }
-    draw_matrix(pixels);
-}
-

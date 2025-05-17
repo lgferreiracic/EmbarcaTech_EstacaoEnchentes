@@ -32,7 +32,8 @@ add_executable(${PROJECT_NAME}
         lib/matrix.c
         lib/buzzer.c
         lib/leds.c
-        lib/button.c)
+        lib/button.c
+        lib/joystick.c)
 target_compile_definitions(${PROJECT_NAME} PRIVATE
         PICO_PRINTF_SUPPORTS_FLOAT=1
         PICO_STDIO_ENABLE_PRINTF=1
@@ -44,6 +45,7 @@ target_link_libraries(${PROJECT_NAME}
         hardware_i2c
         hardware_gpio
         hardware_pio
+        hardware_adc
         FreeRTOS-Kernel       
         FreeRTOS-Kernel-Heap4   
         )
