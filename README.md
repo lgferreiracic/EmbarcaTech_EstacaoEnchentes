@@ -84,4 +84,4 @@ O sistema processa os dados via tarefas FreeRTOS com comunicação por **filas**
 
 ## Vídeo da Solução
 
-[Assista no YouTube](https://www.youtube.com/)
+[Assista no YouTube](https://www.youtube.com/watch?v=F2qeUGVqE54)

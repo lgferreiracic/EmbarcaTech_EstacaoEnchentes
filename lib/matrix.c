@@ -1,8 +1,8 @@
 #include "./lib/matrix.h"
 
 //Cores 
-const RGB BLUE = {0, 0, 1};
-const RGB CYAN = {0, 1, 1};
+const RGB BLUE = {0, 0, 0.1};
+const RGB CYAN = {0, 0.1, 0.1};
 const RGB BLACK = {0, 0, 0};
 
 uint8_t matrix[5][5] = {0};
