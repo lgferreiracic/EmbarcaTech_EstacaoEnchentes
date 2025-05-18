@@ -33,7 +33,7 @@
 #define WIFI_SSID "A35 de Lucas"
 #define WIFI_PASSWORD "lucaslucas"
 
-char html[1024]; // Buffer para armazenar a resposta HTML
+char html[2048]; // Buffer para armazenar a resposta HTML
 ssd1306_t ssd; // Variável para o display OLED SSD1306
 QueueHandle_t xQueueMatrixData;
 QueueHandle_t xQueueLedData;
@@ -168,10 +168,12 @@ void user_request(char *html, size_t html_size) {
     const char *color;
     const char *recommendation;
     const char *reason;
+    const char *image_url;
 
     if (water_level_html >= 70 || rain_level_html >= 80) {
         status_msg = "Perigo";
-        color = "#D32F2F"; // Vermelho
+        color = "#D32F2F";
+        image_url = "https://i.imgur.com/rJb8Ti0.png";
         recommendation = "Evacue a area imediatamente e procure um abrigo.";
         if (water_level_html >= 70 && rain_level_html >= 80) {
             reason = "Alertamos para risco de enchente e volume excessivo de chuva.";
@@ -182,7 +184,8 @@ void user_request(char *html, size_t html_size) {
         }
     } else if (water_level_html >= 55 || rain_level_html >= 60) {
         status_msg = "Atencao";
-        color = "#FBC02D"; // Amarelo
+        color = "#FBC02D";
+        image_url = "https://i.imgur.com/wfjgl8f.png";
         recommendation = "Fique atento aos alertas e preparado para abrigar-se.";
         if (water_level_html >= 55 && rain_level_html >= 60) {
             reason = "Possivel risco por aumento do nivel da agua e chuvas fortes.";
@@ -193,7 +196,8 @@ void user_request(char *html, size_t html_size) {
         }
     } else {
         status_msg = "Seguro";
-        color = "#388E3C"; // Verde
+        color = "#388E3C";
+        image_url = "https://i.imgur.com/Hbmsm4U.png";
         recommendation = "Condicoes normais. Mantenha-se informado.";
         reason = "Sem indicativos de risco de enchente ou chuva intensa no momento.";
     }
@@ -209,22 +213,30 @@ void user_request(char *html, size_t html_size) {
         ".alert{font-weight:bold;font-size:1.5em;margin:15px 0;}"
         ".rec{font-size:1em;margin-top:10px;}"
         ".reason{font-size:0.95em;margin-top:10px;color:#0277BD;}"
+        ".alert-img{width:140px;height:auto;margin:20px auto;display:block;"
+        "animation: pulse 0.8s infinite alternate ease-in-out;}"
+        "@keyframes pulse {"
+        "  from { transform: scale(1); }"
+        "  to { transform: scale(1.25); }"
+        "}"
+        ".footer-img{width:100%%;max-width:300px;margin:30px auto;display:block;}"
         "</style>"
-        "<script>setInterval(function(){location.href='/';},1000);</script>"
+        "<script>setInterval(function(){location.href='/';},1600);</script>"
         "</head><body>"
 
-        "<h1>Estacao de Alerta de Enchente</h1>"
-
         "<div class='status'>"
+        "<h1>Estacao de Alerta de Enchente</h1>"
         "<div class='level'>Nivel da Agua: %d%%</div>"
         "<div class='level'>Volume de Chuva: %d%%</div>"
         "<div class='alert' style='color:%s;'>%s</div>"
+        "<img class='alert-img' src='%s' alt='Imagem de Alerta'>"
         "<div class='reason'>%s</div>"
         "<div class='rec'>%s</div>"
+         "<img class='footer-img' src='https://i.imgur.com/HiwsnXV.png' alt='Imagem Extra'>"
         "</div>"
 
         "</body></html>",
-        water_level_html, rain_level_html, color, status_msg, reason, recommendation);
+        water_level_html, rain_level_html, color, status_msg, image_url, reason, recommendation);
 }
 
 // Função de callback para receber dados TCP
