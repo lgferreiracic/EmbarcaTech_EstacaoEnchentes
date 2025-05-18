@@ -38,7 +38,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
         PICO_PRINTF_SUPPORTS_FLOAT=1
         PICO_STDIO_ENABLE_PRINTF=1
 )
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME}
         pico_stdlib 
         hardware_pwm
@@ -48,7 +47,19 @@ target_link_libraries(${PROJECT_NAME}
         hardware_adc
         FreeRTOS-Kernel       
         FreeRTOS-Kernel-Heap4   
+        pico_cyw43_arch_lwip_threadsafe_background
         )
+target_include_directories(${PROJECT_NAME}  PRIVATE
+        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_CURRENT_LIST_DIR}
+        ${PICO_SDK_PATH}/lib/lwip/src/include
+        ${PICO_SDK_PATH}/lib/lwip/src/include/arch
+        ${PICO_SDK_PATH}/lib/lwip/src/include/lwip
+)
+target_sources(${PROJECT_NAME}  PRIVATE
+    ${PICO_SDK_PATH}/lib/lwip/src/apps/http/httpd.c
+    ${PICO_SDK_PATH}/lib/lwip/src/apps/http/fs.c
+)
 pico_enable_stdio_uart(${PROJECT_NAME} 0)
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
 
