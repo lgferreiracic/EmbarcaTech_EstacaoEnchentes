@@ -10,6 +10,5 @@
 #define BUTTON_B 6
 
 void button_init(uint gpio); // Inicializa o botão
-void gpio_irq_handler(uint gpio, uint32_t events);
 
 #endif

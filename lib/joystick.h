@@ -18,5 +18,6 @@ void joystick_init(); // Inicializa o joystick
 uint16_t joystick_read_x(); // Lê o valor do eixo x do joystick
 uint16_t joystick_read_y(); // Lê o valor do eixo y do joystick
 joystick_data_t joystick_read(); // Lê os valores dos eixos x e y do joystick
+uint16_t get_percentage(uint16_t value); // Converte o valor lido do joystick para porcentagem
 
 #endif 

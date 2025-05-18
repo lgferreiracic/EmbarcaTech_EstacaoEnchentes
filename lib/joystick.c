@@ -26,3 +26,8 @@ joystick_data_t joystick_read(){
     data.y_pos = joystick_read_y();
     return data;
 }
+
+// Função para converter o valor lido do joystick para porcentagem
+uint16_t get_percentage(uint16_t value){
+    return (value * 100) / 4095;
+}
